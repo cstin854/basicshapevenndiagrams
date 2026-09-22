@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Venn Diagram Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .instructions {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 40px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .venn-container {
+            position: relative;
+            width: 700px;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .circle {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            position: absolute;
+            mix-blend-mode: multiply;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 60px;
+            box-sizing: border-box;
+            border: 4px solid #444;
+        }
+        .circle-left {
+            background-color: rgba(255, 179, 186, 0.6);
+            left: 50px;
+        }
+        .circle-right {
+            background-color: rgba(186, 225, 255, 0.6);
+            right: 50px;
+        }
+        .label-text {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            width: 60%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="instructions">
+        <h2>Venn Diagram Label Generator</h2>
+        <p>Generate random categories to sort shapes from Geometry The "Shape Bucket"[cite: 1].</p>
+    </div>
+
+    <button onclick="randomizeLabels()">Generate New Labels</button>
+
+    <div class="venn-container">
+        <div class="circle circle-left">
+            <div class="label-text" id="label1"></div>
+        </div>
+        <div class="circle circle-right">
+            <div class="label-text" id="label2"></div>
+        </div>
+    </div>
+
+    <script>
+        // Finalized list of 16 labels based on criteria
+        const labels = [
+            "Has at least one pair of parallel sides",
+            "Has at least one pair of sides of equal length",
+            "Is equilateral",
+            "Has at least one right angle (90°)",
+            "Has at least one pair of perpendicular sides",
+            "Has at least one obtuse angle",
+            "Has at least one acute angle",
+            "Is equiangular",
+            "Has no parallel sides",
+            "Is regular",
+            "Has rotation symmetry (less than 360 degrees)",
+            "Has reflection symmetry",
+            "Has strictly more than 1 line of reflection symmetry",
+            "Has no line of reflection symmetry",
+            "Is a quadrilateral",
+            "Has an even number of sides"
+        ];
+
+        function randomizeLabels() {
+            // Pick two random unique indices
+            let index1 = Math.floor(Math.random() * labels.length);
+            let index2 = Math.floor(Math.random() * labels.length);
+            
+            // Ensure the two labels are distinct
+            while (index1 === index2) {
+                index2 = Math.floor(Math.random() * labels.length);
+            }
+            
+            // Assign to the HTML elements
+            document.getElementById('label1').textContent = labels[index1];
+            document.getElementById('label2').textContent = labels[index2];
+        }
+
+        // Generate initial labels on page load
+        window.onload = randomizeLabels;
+    </script>
+
+</body>
+</html>
